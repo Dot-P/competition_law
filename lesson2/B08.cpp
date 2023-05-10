@@ -24,23 +24,26 @@ int main(void){
   vector<vector<int>> cumulative_sum(1600, vector<int>(1600, 0));
 
   rep(i,1600){
-    // cumulative_sum[i][0] = coordinates[i][0];
     for(int j=1; j<1600; j++){
-      cumulative_sum[i][j] = coordinates[i][j-1] + coordinates[i][j];
+      cumulative_sum[i][j] += (cumulative_sum[i][j-1] + coordinates[i][j]);
     }
   }
 
   rep(i, 1600){
     for(int j=1; j<1600; j++){
-      cumulative_sum[j][i] += coordinates[j-1][i];
+      cumulative_sum[j][i] += cumulative_sum[j-1][i];
     }
   }
 
-  rep(i, 10){
-    rep(j, 10){
-      cout << cumulative_sum[i][j] << " ";
-    }
-    cout << endl;
+  // rep(i, 10){
+  //   rep(j, 10){
+  //     cout << cumulative_sum[i][j] << " ";
+  //   }
+  //   cout << endl;
+  // }
+  rep(i, Q){
+    int ans = cumulative_sum[c[i]][d[i]] + cumulative_sum[a[i]-1][b[i]-1] - cumulative_sum[c[i]][b[i]-1] - cumulative_sum[a[i]-1][d[i]];
+    cout << ans << endl;
   }
 
   return 0;
